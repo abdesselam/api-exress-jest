@@ -1,4 +1,4 @@
-# Express API Starter with Typescript
+# Express API Starter with Typescript and JEST test
 
 How to use this template:
 
