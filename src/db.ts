@@ -5,7 +5,7 @@ const {
 } = process.env;
 
 
-const client = new MongoClient(MONGO_URI);
+export const client = new MongoClient(MONGO_URI);
 export const db = client.db();
 
 
