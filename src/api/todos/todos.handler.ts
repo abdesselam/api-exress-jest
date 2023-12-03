@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import {Todo,TodoWithId, Todos} from "./todos.model";
+import {InsertOneResult} from 'mongodb'
 
 export async function findAll(req: Request,res: Response<TodoWithId[]>, next: NextFunction) {
     try {
@@ -12,9 +13,11 @@ export async function findAll(req: Request,res: Response<TodoWithId[]>, next: Ne
     
 }
 
-export async function createOne(req: Request<{},TodoWithId,Todo>,res: Response<TodoWithId>, next: NextFunction) {
+export async function createOne(req: Request<{},InsertOneResult<Todo>,Todo>,res: Response<InsertOneResult<Todo>>, next: NextFunction) {
     try {
         const validateResult = await Todo.parse(req.body)
+        const insertResult = await Todos.insertOne(validateResult)
+        res.json(insertResult);
     } catch (error) {
         next(error);
     }
