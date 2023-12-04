@@ -31,7 +31,6 @@ describe('POST /api/v1/todos', () => {
         content:''
       })
       .expect(422).then((response)=>{
-        console.log('messsage--->',response.body.message)
         expect(response.body).toHaveProperty('message');
     }),
   );
@@ -45,7 +44,6 @@ describe('POST /api/v1/todos', () => {
         done : false,
       })
       .expect(200).then((response)=>{
-        console.log('response.body---->',response.body)
         expect(response.body).toHaveProperty('_id');
         expect(response.body).toHaveProperty('content');
         expect(response.body.content).toBe('Learn TypeScript');
