@@ -34,6 +34,7 @@ describe('POST /api/v1/todos', () => {
         expect(response.body).toHaveProperty('message');
     }),
   );
+  let id = '';
   it('responds with an inserted object', async () => 
     request(app)
       .post('/api/v1/todos')
@@ -45,10 +46,26 @@ describe('POST /api/v1/todos', () => {
       })
       .expect(200).then((response)=>{
         expect(response.body).toHaveProperty('_id');
+        id = response.body._id
         expect(response.body).toHaveProperty('content');
         expect(response.body.content).toBe('Learn TypeScript');
         expect(response.body).toHaveProperty('done');
     }),
   );
+  describe('GET /api/v1/todos/:id', () => {
+    it('responds with an single todo', async () => 
+      request(app)
+        .get(`/api/v1/todos/${id}`)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200).then((response)=>{
+          expect(response.body).toHaveProperty('_id');
+          expect(response.body._id).toBe(id);
+          expect(response.body).toHaveProperty('content');
+          expect(response.body.content).toBe('Learn TypeScript');
+          expect(response.body).toHaveProperty('done');
+      }),
+    );
+  });
 });
 
