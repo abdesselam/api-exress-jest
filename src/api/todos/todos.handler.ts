@@ -24,9 +24,6 @@ export async function createOne(req: Request<{},TodoWithId,Todo>,res: Response<T
             ...validateResult
         });
     } catch (error) {
-        if (error instanceof ZodError){
-                res.status(422);
-        }
         next(error);
     }
     
