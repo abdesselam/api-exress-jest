@@ -8,14 +8,26 @@ import { ParamsWithId } from "../../interfaces/ParamsWithId";
 const router = Router();
 
 
-router.get('/',TodoHandlers.findAll);
-router.get('/:id',
+router.get(
+    '/',
+    TodoHandlers.findAll,);
+router.get(
+    '/:id',
     validateRequest({
         params: ParamsWithId
     }),
     TodoHandlers.findOne,
 );
-router.post('/',
+router.put(
+    '/:id',
+    validateRequest({
+        params: ParamsWithId,
+        body: Todo,
+    }),
+    TodoHandlers.updateOne,
+);
+router.post(
+    '/',
     validateRequest({
         body: Todo,
     }),
