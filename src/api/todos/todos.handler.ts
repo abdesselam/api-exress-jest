@@ -65,3 +65,20 @@ export async function updateOne(req: Request<ParamsWithId,TodoWithId,Todo>,res: 
     }
 
 }
+
+export async function deleteOne(req: Request<ParamsWithId,{},{}>,res: Response<{}>, next: NextFunction) {
+  
+    try {
+        const result = await Todos.findOneAndDelete({
+            _id: new ObjectId(req.params.id),
+        });
+        if(!result){
+            res.status(404);
+            throw new Error(`Todo with id ${req.params.id} not found.`)
+        }
+        res.status(204).end();
+    } catch (error) {
+        next(error)
+    }
+
+}

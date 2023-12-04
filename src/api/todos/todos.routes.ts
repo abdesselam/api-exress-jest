@@ -26,6 +26,14 @@ router.put(
     }),
     TodoHandlers.updateOne,
 );
+router.delete(
+    '/:id',
+    validateRequest({
+        params: ParamsWithId,
+        body: Todo,
+    }),
+    TodoHandlers.deleteOne,
+);
 router.post(
     '/',
     validateRequest({
